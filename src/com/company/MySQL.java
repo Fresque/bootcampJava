@@ -54,8 +54,9 @@ public class MySQL {
     public void createTable(String name) {
         try {
             String Query = "CREATE TABLE " + name + ""
-                    + "(id INT AUTO_INCREMENT,titulo VARCHAR(25), fecha VARCHAR(25),"
-                    + " temperatura INT, descripcion VARCHAR(25), humedad INT, viento INT)";
+                    + "(id INT AUTO_INCREMENT,titulo VARCHAR(50), fecha VARCHAR(50),"
+                    + " temperatura INT, descripcion VARCHAR(50), humedad INT, viento INT,"
+                    + " PRIMARY KEY (id))";
 
             Statement st = connection.createStatement();
             st.executeUpdate(Query);
@@ -65,16 +66,24 @@ public class MySQL {
         }
     }
 
-    public void insertData(String table_name, String titulo, String fecha, int temperatura, String descripcion,
+    public void insertData(String name, String table_name, String titulo, String fecha, int temperatura, String descripcion,
                            int humedad, int viento) {
         try {
-            String Query = "INSERT INTO " + table_name + " VALUES("
+
+
+/*          Este si anda.... carga a la DB
+            String Query = "INSERT INTO `historial`.`registro` (`titulo`, `fecha`, `temperatura`, `descripcion`, `humedad`, `viento`) VALUES ('bariloche', 'hoy', '10', 'lindo', '89', '20');";
+*/
+
+            //Este no logro hacer andar
+            String Query = "INSERT INTO " + name +", " + table_name + " VALUES("
                     + "\"" + titulo + "\", "
                     + "\"" + fecha + "\", "
                     + "\"" + temperatura + "\", "
                     + "\"" + descripcion + "\", "
                     + "\"" + humedad + "\", "
                     + "\"" + viento + "\")";
+
             Statement st = connection.createStatement();
             st.executeUpdate(Query);
             System.out.println("Datos almacenados de forma exitosa");

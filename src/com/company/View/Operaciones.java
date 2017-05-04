@@ -15,7 +15,6 @@ public class Operaciones {
 
     public static void cargarPronosticoEnDb(){
 
-
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n1.Carga manual de informacion meteorologica");
@@ -40,7 +39,7 @@ public class Operaciones {
         System.out.println("viento");
         d.setSpeed(sc.nextInt());
 
-        db.insertData("registro", d.getTitle(), d.getPubDate(), d.getTemp(), d.getText(), d.getHumudity(), d.getSpeed());
+        db.insertData("historial", "registro", d.getTitle(), d.getPubDate(), d.getTemp(), d.getText(), d.getHumudity(), d.getSpeed());
 
         System.out.println(d.getTitle());
         System.out.println(d.getPubDate());
@@ -57,6 +56,7 @@ public class Operaciones {
         for(int i = 0; i<datosClima.size(); i++){
             Dia d = (Dia) datosClima.get(i);
             System.out.println(d.getTitle());
+            System.out.println(d.getText());
         }
     }
 }

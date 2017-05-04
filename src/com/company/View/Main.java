@@ -3,6 +3,8 @@ package com.company.View;
 import com.company.Model.Dia;
 import com.company.MySQL;
 
+import java.util.Scanner;
+
 
 public class Main {
 
@@ -16,15 +18,22 @@ public class Main {
 
         MySQL db = new MySQL();
 
-        db.MySQLConnection("root", "", "");
+        db.MySQLConnection("root", "root", "");
         db.createDB("historial");
+
+        db.MySQLConnection("root", "root", "historial");
         db.createTable("registro");
 
-        db.insertData("registro", e.getTitle(), e.getPubDate(), e.getTemp(), e.getText(), e.getHumudity(), e.getSpeed());
-        db.insertData("registro", f.getTitle(), f.getPubDate(), f.getTemp(), f.getText(), f.getHumudity(), f.getSpeed());
-        db.insertData("registro", g.getTitle(), g.getPubDate(), g.getTemp(), g.getText(), g.getHumudity(), g.getSpeed());
+
+        db.insertData("historial", "registro", e.getTitle(), e.getPubDate(), e.getTemp(), e.getText(), e.getHumudity(), e.getSpeed());
+        db.insertData("historial", "registro", f.getTitle(), f.getPubDate(), f.getTemp(), f.getText(), f.getHumudity(), f.getSpeed());
+        db.insertData("historial", "registro", g.getTitle(), g.getPubDate(), g.getTemp(), g.getText(), g.getHumudity(), g.getSpeed());
+
+
 
         Operaciones.cargarPronosticoEnDb();
+
+        db.closeConnection();
 
 
 
