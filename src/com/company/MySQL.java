@@ -70,13 +70,8 @@ public class MySQL {
                            int humedad, int viento) {
         try {
 
-
-/*          Este si anda.... carga a la DB
-            String Query = "INSERT INTO `historial`.`registro` (`titulo`, `fecha`, `temperatura`, `descripcion`, `humedad`, `viento`) VALUES ('bariloche', 'hoy', '10', 'lindo', '89', '20');";
-*/
-
             //Este no logro hacer andar
-            String Query = "INSERT INTO " + name +", " + table_name + " VALUES("
+            String Query = "INSERT INTO " + name +"." + table_name + " (`titulo`, `fecha`, `temperatura`, `descripcion`, `humedad`, `viento`) VALUES("
                     + "\"" + titulo + "\", "
                     + "\"" + fecha + "\", "
                     + "\"" + temperatura + "\", "
@@ -105,7 +100,7 @@ public class MySQL {
 
                 Dia d = new Dia();
 
-                d.setTitle(resultSet.getString("title"));
+                d.setTitle(resultSet.getString("titulo"));
                 d.setPubDate(resultSet.getString("fecha"));
                 d.setTemp(resultSet.getInt("temperatura"));
                 d.setText(resultSet.getString("descripcion"));
