@@ -11,21 +11,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by marti on 5/4/2017.
+ * Created by marti on 5/19/2017.
  */
-public class MySQL {
-    private static MySQL instance;
+public class DBDao implements Dao{
+    private static DBDao instance;
     private static Connection connection;
 
-    public static MySQL getInstance(){
+    public static DBDao getInstance(){
         if(instance == null) {
-            instance = new MySQL();
+            instance = new DBDao();
         }
         return instance;
     }
-
-
-    public void MySQLConnection(String user, String pass, String db_name) throws Exception {
+    public void conectar(String user, String pass, String db_name){
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db_name, user, pass);
@@ -37,45 +35,8 @@ public class MySQL {
         }
     }
 
-    public void closeConnection() {
-        try {
-            connection.close();
-            System.out.println("Se ha finalizado la conexión con el servidor");
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /*public void createDB(String name) throws Exception {
-        try {
-            String Query = "CREATE DATABASE " + name;
-            Statement st = connection.createStatement();
-            st.executeUpdate(Query);
-            closeConnection();
-            MySQLConnection("root", "", name);
-            System.out.println("Se ha creado la base de datos " + name + " de forma exitosa");
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void createTable(String name) {
-        try {
-            String Query = "CREATE TABLE " + name + ""
-                    + "(id INT AUTO_INCREMENT,titulo VARCHAR(50), fecha VARCHAR(50),"
-                    + " temperatura INT, descripcion VARCHAR(50), humedad INT, viento INT,"
-                    + " PRIMARY KEY (id))";
-
-            Statement st = connection.createStatement();
-            st.executeUpdate(Query);
-            System.out.println("Se ha creado la tabla " + name + " de forma exitosa");
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-*/
-    public void insertData(String name, String table_name, String titulo, String fecha, int temperatura, String descripcion,
-                           int humedad, int viento) {
+    public void insertarRegistro(String name, String table_name, String titulo, String fecha, int temperatura, String descripcion,
+                                 int humedad, int viento){
         try {
 
             //Este no logro hacer andar
@@ -95,7 +56,7 @@ public class MySQL {
         }
     }
 
-    public ArrayList getValues(String table_name) {
+    public ArrayList solicitarRegistro(String table_name){
         try {
             String Query = "SELECT * FROM " + table_name;
             Statement st = connection.createStatement();
@@ -127,7 +88,12 @@ public class MySQL {
         return null;
     }
 
-    public Connection getConnection(){
-        return connection;
+    public void desconectar(){
+        try {
+            connection.close();
+            System.out.println("Se ha finalizado la conexión con el servidor");
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

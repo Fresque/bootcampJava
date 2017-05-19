@@ -1,5 +1,7 @@
 package com.company.View;
 
+import com.company.DBDao;
+import com.company.Dao;
 import com.company.Model.Dia;
 import com.company.MySQL;
 
@@ -11,7 +13,7 @@ import java.util.Scanner;
  */
 public class Operaciones {
 
-    static MySQL db = new MySQL();
+    static Dao db = DBDao.getInstance();
 
     public static void cargarPronosticoEnDb(){
 
@@ -39,7 +41,7 @@ public class Operaciones {
         System.out.println("viento");
         d.setSpeed(sc.nextInt());
 
-        db.insertData("historial", "registro", d.getTitle(), d.getPubDate(), d.getTemp(), d.getText(), d.getHumudity(), d.getSpeed());
+        db.insertarRegistro("historial", "registro", d.getTitle(), d.getPubDate(), d.getTemp(), d.getText(), d.getHumudity(), d.getSpeed());
 
         System.out.println(d.getTitle());
         System.out.println(d.getPubDate());
@@ -51,7 +53,7 @@ public class Operaciones {
 
     public static void solicitarTabla(){
 
-        ArrayList datosClima = db.getValues("registro");
+        ArrayList datosClima = db.solicitarRegistro("registro");
 
         for(int i = 0; i<datosClima.size(); i++){
             Dia d = (Dia) datosClima.get(i);
