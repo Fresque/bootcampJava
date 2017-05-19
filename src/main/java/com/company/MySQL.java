@@ -14,7 +14,15 @@ import java.util.logging.Logger;
  * Created by marti on 5/4/2017.
  */
 public class MySQL {
+    private static MySQL instance;
     private static Connection connection;
+
+    public static MySQL getInstance(){
+        if(instance == null) {
+            instance = new MySQL();
+        }
+        return instance;
+    }
 
 
     public void MySQLConnection(String user, String pass, String db_name) throws Exception {
@@ -119,4 +127,7 @@ public class MySQL {
         return null;
     }
 
+    public Connection getConnection(){
+        return connection;
+    }
 }

@@ -19,7 +19,7 @@ public class Main {
         Dia f = new Dia("Pronostico Rio Cuarto", "05/05/2017", 23, "parcalmente nublado", 77, 8);
         Dia g = new Dia("Pronostico Villa Maria", "03/05/2017", 16, "fresco", 58, 12);
 
-        MySQL db = new MySQL();
+        MySQL db = MySQL.getInstance();
 
         db.MySQLConnection("root", "root", "");
         db.createDB("historial");
